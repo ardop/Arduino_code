@@ -49,6 +49,22 @@ void write_register(int reg_number, int value)
   }
 
   // Updating the values of the current registers
+
+  switch(reg_number)
+  {
+    case 1: num_reg1 = value;
+            break;
+    case 2: num_reg2 = value;
+            break;
+    case 3: num_reg3 = value;
+            break;
+    case 4: num_reg4 = value;
+            break;
+    case 5: num_reg5 = value;
+            break;
+    default: break;
+  }
+  
 }
 
 void loop() {
