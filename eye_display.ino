@@ -147,6 +147,18 @@ void lightCathode(int y)
   digitalWrite(cathode[1], HIGH);
 }
 
+void normalBatchBothEyes()
+{
+  // Persistence of vision to display the eyes (10 ms second between each row)
+  for(int i=1;i<=10;i++)
+  {
+    lightCathode(i);
+    regLeftWrite(eye_batch_reg_1[i], eye_batch_reg_2[i]);
+    regRightWrite(eye_batch_reg_1[i], eye_batch_reg_2[i]);
+    delay(1); // To ensure persistence of vision
+  }
+}
+
 
 
 void setup()
