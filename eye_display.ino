@@ -153,9 +153,67 @@ void normalBatchBothEyes()
   for(int i=1;i<=10;i++)
   {
     lightCathode(i);
-    regLeftWrite(eye_batch_reg_1[i], eye_batch_reg_2[i]);
-    regRightWrite(eye_batch_reg_1[i], eye_batch_reg_2[i]);
+    regLeftWrite(eye_batch_reg_1[i-1], eye_batch_reg_2[i-1]);
+    regRightWrite(eye_batch_reg_1[i-1], eye_batch_reg_2[i-1]);
     delay(1); // To ensure persistence of vision
+  }
+}
+
+void displayBothEyes(int eye_1[], int eye_2[])
+{
+  // displays with arrays as batch reference
+  for(int i=1;i<=10;i++)
+  {
+    lightCathode(i);
+    regLeftWrite(eye_1[i-1], eye_2[i-1]);
+    regRightWrite(eye_1[i-1], eye_2[i-1]);
+    delay(1); // To ensure persistence of vision
+  }
+}
+
+
+// Generic functions for diminishing and expanding the eye while blinking
+
+void diminishEye(int a[], int b[], int c)
+{
+  // Diminishes a and b matrices by one stage (removing middle 2 rows)
+  for(int i=0;i<c;i++)
+  {
+    // Diminish eye height by 2 layers (middle rows)
+    a[5-i-1] = a[5-i-2];
+    a[5+i] = a[5+i+1];
+    b[5-i-1] = b[5-i-2];
+    b[5+i] = b[5+i+1];
+  }
+}
+
+void expandEye(int a[], int b[], int c)
+{
+  // Expands the diminished portion
+}
+
+
+void blinkBothEyes(int eye_batch_reg_1[], int eye_batch_reg_2[])
+{
+  int eye_1[10];
+  int eye_2[10];
+
+  // Blinking action by taking away the middle 2 led rows at a time and collapsing
+  for(int i=0;i<10;i++)
+  {
+    eye_1[i] = eye_batch_reg_1[i];
+    eye_2[i] = eye_batch_reg_2[i];
+  }
+
+  for(int i=0;i<3;i++)
+  {
+    diminishEye(eye_1, eye_2, 3);
+    int start_time = millis();
+    while(millis()-start_time<50)
+    {
+     displayBothEyes(eye_1, eye_2);
+    }
+    
   }
 }
 
