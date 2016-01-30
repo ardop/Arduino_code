@@ -15,6 +15,9 @@ int cathode[] = {7, 8, 9};
 int eye_batch_reg_1[] = {0, 0, 3, 7, 15, 15, 7, 3, 0, 0};
 int eye_batch_reg_2[] = {0, 0, 0, 128, 192, 192, 128, 0, 0, 0};
 
+int happy_eye_batch_reg_1[] = {0, 0, 24, 12, 12, 7, 3, 3, 0, 0};
+int happy_eye_batch_reg_2[] = {0, 0, 96, 192, 192, 128, 0, 0, 0, 0};
+
 
 
 
@@ -168,6 +171,18 @@ void displayBothEyes(int eye_1[], int eye_2[])
     regLeftWrite(eye_1[i-1], eye_2[i-1]);
     regRightWrite(eye_1[i-1], eye_2[i-1]);
     delay(1); // To ensure persistence of vision
+  }
+}
+
+void sadBatchBothEyes()
+{
+  // 10ms between each row
+  for(int i=1;i<=10;i++)
+  {
+    lightCathode(i);
+    regLeftWrite(happy_eye_batch_reg_1[i-1], happy_eye_batch_reg_2[i-1]);
+    regRightWrite(happy_eye_batch_reg_1[i-1], happy_eye_batch_reg_2[i-1]);
+    delay(1);
   }
 }
 
