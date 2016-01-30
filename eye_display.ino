@@ -187,9 +187,26 @@ void diminishEye(int a[], int b[], int c)
   }
 }
 
-void expandEye(int a[], int b[], int c)
+void expandEye(int a[], int b[], int aa[], int bb[], int c, int d)
 {
   // Expands the diminished portion
+  // Here a, b are the changing batch values
+  // aa and bb are the actual eye batch values which is used for reconstruction
+  for(int i=0;i<c;i++)
+  {
+    // Reconstruction logic can be understood from the sheets
+    
+    a[5-i-2] = a[5-i-1];
+    a[5+i+1] = a[5+i];
+    b[5-i-2] = b[5-i-1];
+    b[5+i+1] = b[5+i];
+
+    a[4] = aa[d];
+    a[5] = aa[d];
+    b[4] = bb[d];
+    b[5] = bb[d];
+    
+  }
 }
 
 
@@ -205,6 +222,7 @@ void blinkBothEyes(int eye_batch_reg_1[], int eye_batch_reg_2[])
     eye_2[i] = eye_batch_reg_2[i];
   }
 
+  // Closing eyes
   for(int i=0;i<3;i++)
   {
     diminishEye(eye_1, eye_2, 3);
@@ -212,6 +230,17 @@ void blinkBothEyes(int eye_batch_reg_1[], int eye_batch_reg_2[])
     while(millis()-start_time<50)
     {
      displayBothEyes(eye_1, eye_2);
+    }
+
+  // Opening eyes
+  }
+  for(int i=0;i<3;i++)
+  {
+    expandEye(eye_1, eye_2, eye_batch_reg_1, eye_batch_reg_2, i+1, i+2);
+    int start_time = millis();
+    while(millis()-start_time<50)
+    {
+      displayBothEyes(eye_1, eye_2);
     }
     
   }
