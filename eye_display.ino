@@ -19,7 +19,22 @@ int happy_eye_batch_reg_1[] = {0, 0, 24, 12, 12, 7, 3, 3, 0, 0};
 int happy_eye_batch_reg_2[] = {0, 0, 96, 192, 192, 128, 0, 0, 0, 0};
 
 
-
+// Blink random timing generator
+int blink_time()
+{
+  int m = random(4, 7);
+  int chance = random(1, 3);
+  if(chance == 1)
+  {
+    m = 3;
+    int greater_chance = random(1, 2);
+    if(greater_chance == 2)
+    {
+      m = random(7, 10);
+    }
+  }
+  
+}
 
 // Writes numbers to the left register pair
 void regLeftWrite(int num1, int num2)
