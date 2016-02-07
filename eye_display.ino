@@ -7,9 +7,9 @@
 // Array index 1 --> latch pin
 // Array index 2 --> clock pin
 
-int left[] = {1, 2, 3};
+int left[] = {7, 8, 9};
 int right[] = {4, 5, 6};
-int cathode[] = {7, 8, 9};
+int cathode[] = {1, 2, 3};
 
 // Default eye pattern (batch led)
 int eye_batch_reg_1[] = {0, 0, 3, 7, 15, 15, 7, 3, 0, 0};
@@ -291,10 +291,20 @@ void setup()
 
   //Serial monitor for Debugging
   Serial.begin(9600);
+
+  regLeftWrite(1, 1);
+  regRightWrite(0,0);
+  lightCathode(5);
   
 }
 
 void loop()
 {
+//  for(int i=1;i<10;i++)
+//  {
+//    lightCathode(i);
+//    regLeftWrite(255,255);
+//    delay(500);
+//  }
 
 }
